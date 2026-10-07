@@ -9,3 +9,4 @@ dbt_packages/
 .env
 .DS_Store
 prod_dbt_artifacts/
+.user.yml
