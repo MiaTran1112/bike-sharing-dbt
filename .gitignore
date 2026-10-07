@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.pyc
+data/
+database/
+target/
+logs/
+dbt_packages/
+.env
+.DS_Store
+prod_dbt_artifacts/
