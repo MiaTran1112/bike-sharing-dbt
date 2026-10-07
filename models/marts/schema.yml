@@ -1,0 +1,46 @@
+version: 2
+
+models:
+  - name: fct_daily_rentals
+    description: "One row per calendar date."
+    columns:
+      - name: rental_date
+        data_tests: [unique, not_null]
+      - name: total_rentals
+        data_tests: [not_null]
+
+  - name: mart_monthly_demand
+    description: "One row per month, with rental totals and daily averages."
+    columns:
+      - name: month_start
+        data_tests: [unique, not_null]
+      - name: total_rentals
+        data_tests: [not_null]
+      - name: observed_days
+        data_tests: [not_null]
+
+  - name: mart_seasonal_demand
+    description: "One row per year, season and day type."
+    columns:
+      - name: rental_year
+        data_tests: [not_null]
+      - name: season
+        data_tests: [not_null]
+      - name: day_type
+        data_tests: [not_null]
+      - name: total_rentals
+        data_tests: [not_null]
+
+  - name: mart_weather_demand
+    description: "Daily demand by year, weather and working-day category."
+    columns:
+      - name: rental_year
+        data_tests: [not_null]
+      - name: weather
+        data_tests: [not_null]
+      - name: day_type
+        data_tests: [not_null]
+      - name: observed_days
+        data_tests: [not_null]
+      - name: avg_daily_rentals
+        data_tests: [not_null]
