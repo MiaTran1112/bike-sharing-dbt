@@ -1,0 +1,21 @@
+bike_sharing:
+  target: dev
+
+  outputs:
+    dev:
+      type: duckdb
+      path: database/bike_sharing.duckdb
+      schema: dev
+      threads: 4
+
+    ci:
+      type: duckdb
+      path: database/bike_sharing.duckdb
+      schema: "{{ env_var('DBT_CI_SCHEMA', 'ci_local') }}"
+      threads: 4
+
+    prod:
+      type: duckdb
+      path: database/bike_sharing.duckdb
+      schema: prod
+      threads: 4
