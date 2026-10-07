@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: bike_sharing
+    schema: raw
+    tables:
+      - name: daily
+        identifier: bike_daily
+        description: "Daily bike-sharing data loaded by Python."
