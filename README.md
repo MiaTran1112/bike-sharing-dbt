@@ -4,6 +4,7 @@ A small analytics engineering project using daily bike-sharing data.
 Python loads a public CSV into DuckDB. dbt cleans the data, builds analysis-ready tables, and runs data quality tests.
 
 ## Overview structure
+```
 bike-sharing-dbt/
 ├── .github/
 │   └── workflows/
@@ -38,6 +39,7 @@ bike-sharing-dbt/
 ├── requirements.txt                    # Python dependencies
 ├── README.md                           # Project overview and setup
 └── .gitignore                          # Exclude local and generated files
+```
 
 ## Dataset
 
