@@ -1,0 +1,20 @@
+version: 2
+
+models:
+  - name: int_bike_daily
+    description: "Daily observations enriched with analysis categories."
+    columns:
+      - name: rental_date
+        data_tests: [unique, not_null]
+      - name: month_start
+        data_tests: [not_null]
+      - name: season
+        data_tests: [not_null]
+      - name: weather
+        data_tests: [not_null]
+      - name: day_type
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['working_day', 'weekend_or_holiday']
