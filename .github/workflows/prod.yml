@@ -1,0 +1,55 @@
+name: cd
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cd
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    env:
+      DBT_PROFILES_DIR: .
+      DBT_SEND_ANONYMOUS_USAGE_STATS: "false"
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-lock.txt
+
+      - name: Install locked dependencies
+        run: python -m pip install -r requirements-lock.txt
+
+      - name: Download CSV and load raw data
+        run: python scripts/load_raw.py
+
+      - name: Build production
+        run: dbt build --target prod
+
+      - name: Stage production artifacts
+        run: |
+          mkdir -p prod_dbt_artifacts
+          cp target/manifest.json prod_dbt_artifacts/manifest.json
+          cp database/bike_sharing.duckdb prod_dbt_artifacts/bike_sharing.duckdb
+
+      - name: Upload production artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: prod-dbt-artifacts
+          path: prod_dbt_artifacts/
+          if-no-files-found: error
+          retention-days: 30
